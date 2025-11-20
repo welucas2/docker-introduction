@@ -25,13 +25,14 @@ Please try to install the appropriate software from the list below depending on 
 
 #### Microsoft Windows
 
-**You must have admin rights to run Docker!** Some parts of the lesson will work without running as admin but if you are unable to `Run as administrator` on your machine some elements of this workshop might not work as described.
+**You must have admin rights to run Podman!** Some parts of the lesson will work without running as admin but if you are unable to `Run as administrator` on your machine some elements of this workshop might not work as described.
 
-Ideally, you will be able to install the Docker Desktop software, following the [Docker website's documentation](https://docs.docker.com/docker-for-windows/install/). Note that the instructions for installing Docker Desktop on Windows 10 Home Edition are different from other versions of Windows 10.
+Ideally, you will be able to install the Podman Desktop, following the [Podman website's documentation](https://podman-desktop.io/docs/installation/windows-install).
+Note that Podman for Windows relies upon installing the Windows Subsystem for Linux (WSL).
 
-Note that the above installation instructions highlight a minimum version or "build" that is required to be able to install Docker on your Windows 10 system. See [Which version of Windows operating system am I running?](https://support.microsoft.com/en-us/windows/which-version-of-windows-operating-system-am-i-running-628bec99-476a-2c13-5296-9dd081cdd808) for details of how to find out which version/build of Windows 10 you have.
+Note that the above installation instructions highlight a minimum version or "build" that is required to be able to install Podman on your Windows 10 system. See [Which version of Windows operating system am I running?](https://support.microsoft.com/en-us/windows/which-version-of-windows-operating-system-am-i-running-628bec99-476a-2c13-5296-9dd081cdd808) for details of how to find out which version/build of Windows 10 you have.
 
-If you are unable to follow the above instructions to install Docker Desktop on your Windows system, the final release of the deprecated Docker Toolbox version of Docker for Windows can be downloaded from the [releases page of the Docker Toolbox GitHub repository](https://github.com/docker/toolbox/releases). (Download the `.exe` file for the Windows installer). *Please note that this final release of Docker Toolbox includes an old version of Docker and you are strongly advised not to attempt to use this for any production use. It will, however, enable you to follow along with the lesson material.*
+If you are unable to follow the above instructions to install Podman on your Windows system, the final release of the deprecated Docker Toolbox version of Docker for Windows can be downloaded from the [releases page of the Docker Toolbox GitHub repository](https://github.com/docker/toolbox/releases). (Download the `.exe` file for the Windows installer). *Please note that this final release of Docker Toolbox includes an old version of Docker and you are strongly advised not to attempt to use this for any production use. It will, however, enable you to follow along with the lesson material.*
 
 :::::::::::::::::::::::::::::::::::::::::  callout
 
@@ -43,7 +44,7 @@ any paths you specify at the command line into Windows versions of the paths and
 the Docker container you are trying to use. For example, if you enter the command:
 
 ```
-docker run alpine cat /etc/os-release
+podman run alpine cat /etc/os-release
 ```
 
 Git Bash will change the `/etc/os-release` path to `C:\etc\os-release\` before passing the command
@@ -52,7 +53,7 @@ can request that this path translation does not take place by adding an extra `/
 path. i.e. the command would become:
 
 ```
-docker run alpine cat //etc/os-release
+podman run alpine cat //etc/os-release
 ```
 
 This should suppress the path translation functionality in Git Bash.
@@ -62,18 +63,13 @@ This should suppress the path translation functionality in Git Bash.
 
 #### Apple macOS
 
-Ideally, you will be able to install the Docker Desktop software, following the
-[Docker website's documentation](https://docs.docker.com/docker-for-mac/install/).
-The current version of the Docker Desktop software requires macOS version 10.14 (Mojave) or later.
+Ideally, you will be able to install the Podman software, from the
+[Podman Github Releases website](https://github.com/containers/podman/releases/).
+The current version of the Podman software appears to require macOS version 13 (Ventura) or later, but we have not tested this.
 
 If you already use Homebrew or MacPorts to manage your software, and would prefer to use those
-tools rather than Docker's installer, you can do so. For Homebrew, you can run the command
-`brew install --cask docker`. Note that you still need to run the Docker graphical user interface
-once to complete the initial setup, after which time the command line functionality of Docker will
-become available. The Homebrew install of Docker also requires a minimum macOS version of 10.14.
-The MacPorts Docker port should support older, as well as the most recent, operating system
-versions (see the [port details](https://ports.macports.org/port/docker/details/)), but note that
-we have not recently tested the Docker installation process via MacPorts.
+tools rather than Podman's installer, you can do so. For Homebrew, you can run the command
+`brew install podman`.
 
 #### Linux
 
@@ -86,44 +82,21 @@ There are too many varieties of Linux to give precise instructions here, but hop
 
 ### Verify Installation
 
-To quickly check if the Docker and client and server are working run the following command in a new terminal or ssh session:
+To quickly check if Podman is working run the following command in a new terminal or ssh session:
 
 ```bash
-$ docker version
+$ podman version
 ```
 
 ```output
-Client:
- Version:           20.10.2
- API version:       1.41
- Go version:        go1.13.8
- Git commit:        20.10.2-0ubuntu2
- Built:             Tue Mar  2 05:52:27 2021
- OS/Arch:           linux/arm64
- Context:           default
- Experimental:      true
-
-Server:
- Engine:
-  Version:          20.10.2
-  API version:      1.41 (minimum version 1.12)
-  Go version:       go1.13.8
-  Git commit:       20.10.2-0ubuntu2
-  Built:            Tue Mar  2 05:45:16 2021
-  OS/Arch:          linux/arm64
-  Experimental:     false
- containerd:
-  Version:          1.4.4-0ubuntu1
-  GitCommit:        
- runc:
-  Version:          1.0.0~rc95-0ubuntu1~21.04.1
-  GitCommit:        
- docker-init:
-  Version:          0.19.0
-  GitCommit:        
+Version:      3.4.4
+API Version:  3.4.4
+Go Version:   go1.18.1
+Built:        Thu Jan  1 01:00:00 1970
+OS/Arch:      linux/amd64       
 ```
 
-The above output shows a successful installation and will vary based on your system.  The important part is that the "Client" and the "Server" parts are both working and returns information.  It is beyond the scope of this document to debug installation problems but common errors include the user not belonging to the `docker` group and forgetting to start a new terminal or ssh session.
+The above output shows a successful installation and will vary based on your system.  
 
 ### A quick tutorial on copy/pasting file contents from episodes of the lesson
 
